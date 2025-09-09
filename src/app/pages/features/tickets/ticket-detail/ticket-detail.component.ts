@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TicketResponse } from '../../../core/models/ticket.model';
-import { DatePipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-ticket-detail',
-  templateUrl: './ticket-detail.component.html',
-  styleUrls: ['./ticket-detail.component.scss'],
   standalone: true,
-  imports: [DatePipe] 
+  imports: [CommonModule], 
+  templateUrl: './ticket-detail.component.html',
+  styleUrls: ['./ticket-detail.component.scss']
 })
 export class TicketDetailComponent {
   @Input() ticket?: TicketResponse;
