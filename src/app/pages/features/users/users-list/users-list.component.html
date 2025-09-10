@@ -1,1 +1,21 @@
-<p>users-list works!</p>
+<div *ngIf="loading">Carregando usuários...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<table *ngIf="users.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="!loading && users.length === 0">Nenhum usuário encontrado.</div>

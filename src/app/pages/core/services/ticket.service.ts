@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { TicketResponse, Priority, TicketStatus, CreateTicketRequest } from '../models/ticket.model';
+import { TicketResponse, Priority, TicketStatus } from '../models/ticket.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
+  private tickets: TicketResponse[] = [
+    { id: 1, subject: 'Erro no login', description: 'Não consigo logar', priority: Priority.HIGH, status: TicketStatus.OPEN },
+    { id: 2, subject: 'Atualizar servidor', description: 'Atualização pendente', priority: Priority.MEDIUM, status: TicketStatus.IN_PROGRESS }
+  ];
 
-  private baseUrl = 'http://localhost:8080/api/tickets';
-
-  constructor(private http: HttpClient) {}
-
-  list(): Observable<TicketResponse[]> {
-    return this.http.get<TicketResponse[]>(this.baseUrl);
+  getTickets(): TicketResponse[] {
+    return this.tickets;
   }
+  addTicket(ticket: TicketResponse) {
+  this.tickets.push(ticket);
+}
 
-  create(ticket: CreateTicketRequest): Observable<TicketResponse> {
-    return this.http.post<TicketResponse>(this.baseUrl, ticket);
-  }
+
+getTicketById(id: number): TicketResponse | undefined {
+  return this.tickets.find(t => t.id === id);
+}
+
+
 }

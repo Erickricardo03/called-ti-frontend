@@ -1,18 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TicketResponse } from '../../../core/models/ticket.model';
+// ticket.service.ts
+import { Injectable } from '@angular/core';
+import { TicketResponse, Priority, TicketStatus } from '../../../core/models/ticket.model';
 
-@Component({
-  selector: 'app-ticket-detail',
-  standalone: true,
-  imports: [CommonModule], 
-  templateUrl: './ticket-detail.component.html',
-  styleUrls: ['./ticket-detail.component.scss']
-})
-export class TicketDetailComponent {
-  @Input() ticket?: TicketResponse;
+@Injectable({ providedIn: 'root' })
+export class TicketService {
+  private tickets: TicketResponse[] = [
+    { id: 1, subject: 'Exemplo', description: 'Descrição', priority: Priority.LOW, status: TicketStatus.OPEN }
+    // ... outros tickets
+  ];
 
-  get createdAtDate(): Date | null {
-    return this.ticket ? new Date(this.ticket.createdAt) : null;
+  getTickets(): TicketResponse[] {
+    return this.tickets;
+  }
+
+  // Adicione este método
+  getTicketById(id: number): TicketResponse | undefined {
+    return this.tickets.find(t => t.id === id);
   }
 }

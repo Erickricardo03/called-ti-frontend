@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CreateTicketRequest, Priority } from '../../../core/models/ticket.model';
+import { TicketResponse, Priority, CreateTicketRequest  } from '../../../core/models/ticket.model';
 import { TicketService } from '../../../core/services/ticket.service';
 
 @Component({

@@ -1,25 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { TicketResponse, Priority } from '../../../core/models/ticket.model';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TicketService } from '../../../core/services/ticket.service';
-
+import { Ticket } from '../../../core/models/ticket.model';  // modelo correto
 
 @Component({
-selector: 'app-tickets-list',
-templateUrl: './tickets-list.component.html',
-styleUrls: ['./tickets-list.component.scss'],
-standalone: true
+  selector: 'app-ticket-list',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './tickets-list.component.html'  // cuidado com o nome do arquivo
 })
-export class TicketsListComponent implements OnInit {
-tickets: TicketResponse[] = [];
+export class TicketListComponent {
+  tickets: Ticket[] = []; // lista de tickets
 
+  constructor(private ticketService: TicketService) {}
 
-constructor(private ticketService: TicketService) {}
-
-
-ngOnInit() {
-this.ticketService.list().subscribe({
-next: data => this.tickets = data,
-error: err => console.error(err)
-});
-}
+  ngOnInit(): void {
+    this.tickets = this.ticketService.getTickets();
+  }
 }
