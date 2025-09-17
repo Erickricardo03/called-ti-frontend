@@ -28,9 +28,18 @@ export class LoginComponent {
     }
 
     this.loading = true;
+    this.error = '';
+
+    // Simulação de login
     setTimeout(() => {
       this.loading = false;
-      alert('Login simulado com sucesso!');
+
+      const { email, password } = this.loginForm.value;
+      if (email === 'admin@test.com' && password === '123456') {
+        alert('Login realizado com sucesso!');
+      } else {
+        this.error = 'Email ou senha inválidos';
+      }
     }, 1000);
   }
 }

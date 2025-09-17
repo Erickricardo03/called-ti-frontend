@@ -1,45 +1,43 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TicketResponse, Priority, CreateTicketRequest  } from '../../../core/models/ticket.model';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TicketService } from '../../../core/services/ticket.service';
+import { Priority } from '../../../core/models/ticket.model';
 
 @Component({
   selector: 'app-ticket-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './ticket-form.component.html',
-  styleUrls: ['./ticket-form.component.scss']
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './ticket-form.component.html'
 })
 export class TicketFormComponent {
-  subject: string = '';
-  description: string = '';
-  priority: Priority = Priority.LOW;
-  loading: boolean = false;
-  error: string = '';
+  Priority = Priority; 
+  ticketForm: FormGroup;
 
-  constructor(private ticketService: TicketService) {}
+  constructor(private fb: FormBuilder, private ticketService: TicketService) {
+    this.ticketForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      priority: [Priority.LOW, Validators.required],
+      category: ['', Validators.required],
+      requesterId: [1, Validators.required],
+      assigneeId: [null]
+    });
+  }
 
   submit() {
-    this.loading = true;
-    const ticket: CreateTicketRequest = {
-      subject: this.subject,
-      description: this.description,
-      priority: this.priority
-    };
-
-    this.ticketService.create(ticket).subscribe({
-      next: () => {
-        this.loading = false;
-        this.subject = '';
-        this.description = '';
-        this.priority = Priority.LOW;
-      },
-      error: (err) => {
-        this.loading = false;
-        this.error = 'Erro ao criar chamado.';
-        console.error(err);
-      }
-    });
+    if (this.ticketForm.valid) {
+      this.ticketService.create({
+        title: this.ticketForm.value.title!,
+        description: this.ticketForm.value.description!,
+        priority: this.ticketForm.value.priority!,
+        category: this.ticketForm.value.category!,
+        requesterId: this.ticketForm.value.requesterId!,
+        assigneeId: this.ticketForm.value.assigneeId
+      }).subscribe({
+        next: res => console.log('Ticket criado', res),
+        error: err => console.error('Erro ao criar ticket', err)
+      });
+    }
   }
 }

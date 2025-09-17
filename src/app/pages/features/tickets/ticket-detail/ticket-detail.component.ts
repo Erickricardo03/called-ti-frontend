@@ -1,20 +1,26 @@
-// ticket.service.ts
-import { Injectable } from '@angular/core';
-import { TicketResponse, Priority, TicketStatus } from '../../../core/models/ticket.model';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { TicketService } from '../../../core/services/ticket.service';
+import { TicketResponse } from '../../../core/models/ticket.model';
 
-@Injectable({ providedIn: 'root' })
-export class TicketService {
-  private tickets: TicketResponse[] = [
-    { id: 1, subject: 'Exemplo', description: 'Descrição', priority: Priority.LOW, status: TicketStatus.OPEN }
-    // ... outros tickets
-  ];
+@Component({
+  selector: 'app-ticket-detail',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './ticket-detail.component.html',
+  styleUrls: ['./ticket-detail.component.scss']
+})
+export class TicketDetailComponent {
+  ticket?: TicketResponse;
 
-  getTickets(): TicketResponse[] {
-    return this.tickets;
-  }
+  constructor(private ticketService: TicketService, private route: ActivatedRoute) {}
 
-  // Adicione este método
-  getTicketById(id: number): TicketResponse | undefined {
-    return this.tickets.find(t => t.id === id);
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.ticketService.getById(id).subscribe({
+  next: (ticket) => this.ticket = ticket,
+  error: (err) => console.error('Erro ao carregar ticket', err)
+});
   }
 }

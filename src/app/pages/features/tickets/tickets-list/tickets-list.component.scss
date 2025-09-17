@@ -1,0 +1,28 @@
+.ticket-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  &.open {
+    background-color: #e0f7fa; // azul claro
+    border-color: #4fc3f7;
+  }
+
+  &.in_progress {
+    background-color: #fff3e0; // laranja claro
+    border-color: #ffb74d;
+  }
+
+  &.closed {
+    background-color: #e8f5e9; // verde claro
+    border-color: #81c784;
+  }
+
+  .actions {
+    margin-top: 8px;
+    button {
+      margin-right: 4px;
+    }
+  }
+}

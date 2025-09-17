@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserResponse } from '../../../core/models/user.model';
 import { UserService } from '../../../core/services/user.service';
+import { UserResponse } from '../../../core/models/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -11,29 +12,12 @@ import { UserService } from '../../../core/services/user.service';
   imports: [CommonModule]
 })
 export class UsersListComponent implements OnInit {
-  users: UserResponse[] = [];
-  loading: boolean = false;
-  error: string = '';
+  users$!: Observable<UserResponse[]>;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.fetchUsers();
-  }
-
-  fetchUsers(): void {
-    this.loading = true;
-    this.error = '';
-    this.userService.getAll().subscribe({
-      next: (data: UserResponse[]) => {
-        this.users = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.error = 'Erro ao carregar usuários';
-        console.error(err);
-        this.loading = false;
-      }
-    });
+    this.users$ = this.userService.users$;
+    this.userService.getAll().subscribe();
   }
 }

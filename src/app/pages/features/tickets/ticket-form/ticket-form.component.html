@@ -1,1 +1,6 @@
-<p>ticket-form works!</p>
+<label for="priority">Prioridade</label>
+<select id="priority" formControlName="priority">
+  <option [value]="Priority.LOW">Baixa</option>
+  <option [value]="Priority.MEDIUM">Média</option>
+  <option [value]="Priority.HIGH">Alta</option>
+</select>

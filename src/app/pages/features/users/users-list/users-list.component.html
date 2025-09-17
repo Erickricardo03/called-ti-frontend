@@ -1,21 +1,24 @@
-<div *ngIf="loading">Carregando usuários...</div>
-<div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="users$ | async as users">
+  <table *ngIf="users.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<table *ngIf="users.length > 0">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<div *ngIf="!loading && users.length === 0">Nenhum usuário encontrado.</div>
+  <div *ngIf="users.length === 0">
+    Nenhum usuário encontrado.
+  </div>
+</div>

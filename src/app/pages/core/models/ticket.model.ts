@@ -1,15 +1,21 @@
 export interface CreateTicketRequest {
-  subject: string;
+  title: string;           // trocado de subject
   description: string;
   priority: Priority;
+  requesterId: number;     // necessário para o backend
+  category: string;        // necessário para o backend
+  assigneeId?: number;     // opcional
 }
 
 export interface TicketResponse {
   id: number;
-  subject: string;
+  title: string;           // trocado de subject
   description: string;
   priority: Priority;
   status: TicketStatus;
+  category: string;
+  requesterId: number;
+  assigneeId?: number;
 }
 
 export enum Priority {

@@ -1,7 +1,13 @@
-<div *ngIf="ticket" class="ticket-detail">
-  <h3>#{{ ticket.id }} - {{ ticket.subject }}</h3>
+<!-- ticket-detail.component.html -->
+<div *ngIf="ticket">
+  <h2>{{ ticket.title }}</h2>
   <p>{{ ticket.description }}</p>
-  <p>Status: {{ ticket.status }}</p>
-  <p>Prioridade: {{ ticket.priority }}</p>
-  <p>Criado em: {{ createdAtDate | date:'short' }}</p>
+  <p>Status: <b>{{ ticket.status }}</b></p>
+
+  <h3>Comentários</h3>
+  <ul>
+    <li *ngFor="let c of ticket.comments">
+      <b>{{ c.author }}:</b> {{ c.message }}
+    </li>
+  </ul>
 </div>

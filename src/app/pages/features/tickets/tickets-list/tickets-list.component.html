@@ -1,1 +1,5 @@
-<p>tickets-list works!</p>
+<div *ngFor="let ticket of tickets">
+  <h3>{{ ticket.subject }} ({{ ticket.status }})</h3>
+  <p>{{ ticket.description }}</p>
+  <small>Prioridade: {{ ticket.priority }}</small>
+</div>

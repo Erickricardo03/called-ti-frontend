@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user.service'; // ajuste o caminho
 
 @Component({
   selector: 'app-user-form',
@@ -10,18 +11,26 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
-  // Aqui declaramos o FormGroup com o nome correto
   userForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  submit() {
-    if (this.userForm.valid) {
-      console.log('Formulário válido!', this.userForm.value);
-    } else {
-      console.log('Formulário inválido');
-    }
+  constructor(private userService: UserService) {}  // <- injeta o serviço aqui
+
+submit() {
+  if (this.userForm.valid) {
+    this.userService.create({
+      name: this.userForm.value.name!,
+      email: this.userForm.value.email!,
+      password: this.userForm.value.password!
+    }).subscribe({
+      next: res => console.log('Usuário criado', res),
+      error: err => console.error('Erro ao criar usuário', err)
+    });
+  } else {
+    console.log('Formulário inválido');
   }
+}
 }
