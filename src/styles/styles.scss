@@ -1,0 +1,9 @@
+@use 'variables';
+@use 'components';
+
+body {
+  font-family: Arial, sans-serif;
+  background: variables.$light-gray;
+  margin: 0;
+  padding: 0;
+}
