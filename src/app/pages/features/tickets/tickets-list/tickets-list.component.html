@@ -1,5 +1,28 @@
-<div *ngFor="let ticket of tickets">
-  <h3>{{ ticket.subject }} ({{ ticket.status }})</h3>
-  <p>{{ ticket.description }}</p>
-  <small>Prioridade: {{ ticket.priority }}</small>
+<div *ngIf="loading">Carregando tickets...</div>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+<div *ngIf="!loading && !errorMessage">
+  <div *ngFor="let ticket of tickets" class="ticket-card" [ngClass]="ticket.status.toLowerCase()">
+
+    <h3>
+      <a [routerLink]="['/tickets', ticket.id]">
+        {{ ticket.title }} ({{ ticket.status }})
+      </a>
+    </h3>
+
+    <p>{{ ticket.description }}</p>
+    <small>Prioridade: {{ ticket.priority }}</small>
+
+    <div class="actions">
+      <button (click)="editTicket(ticket.id)">Editar</button>
+
+      <button *ngFor="let status of ticketStatuses"
+              [disabled]="ticket.status === status"
+              (click)="updateStatus(ticket, status)">
+        {{ status }}
+      </button>
+
+      <button (click)="deleteTicket(ticket.id)">Excluir</button>
+    </div>
+  </div>
 </div>

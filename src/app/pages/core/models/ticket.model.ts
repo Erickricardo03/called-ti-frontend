@@ -1,22 +1,25 @@
 export interface CreateTicketRequest {
-  title: string;           // trocado de subject
+  title: string;
   description: string;
   priority: Priority;
-  requesterId: number;     // necessário para o backend
-  category: string;        // necessário para o backend
-  assigneeId?: number;     // opcional
+  requesterId: number;
+  category: string;
+  assigneeId?: number;
 }
 
 export interface TicketResponse {
   id: number;
-  title: string;           // trocado de subject
+  title: string;
   description: string;
   priority: Priority;
   status: TicketStatus;
   category: string;
-  requesterId: number;
-  assigneeId?: number;
+  requester: { id: number, name: string }; 
+  assignee?: { id: number, name: string };
+  createdAt: string;
+  updatedAt: string;
 }
+
 
 export enum Priority {
   LOW = 'LOW',
@@ -27,5 +30,6 @@ export enum Priority {
 export enum TicketStatus {
   OPEN = 'OPEN',
   IN_PROGRESS = 'IN_PROGRESS',
-  CLOSED = 'CLOSED'
+  CLOSED = 'CLOSED',
+  FINALIZED = 'FINALIZED'
 }

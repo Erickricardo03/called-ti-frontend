@@ -1,2 +1,65 @@
-<!-- user-form.component.html -->
-<form></form>
+<div class="user-form-container">
+  <h2>Criar Novo Usuário</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+
+    <!-- Nome -->
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Digite o nome"
+      />
+      <small *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+        Nome é obrigatório
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Digite o email"
+      />
+      <small *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        Email inválido
+      </small>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Digite a senha"
+      />
+      <small *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
+        Senha deve ter pelo menos 6 caracteres
+      </small>
+    </div>
+
+    <!-- Role / Perfil -->
+    <div class="form-group">
+      <label for="role">Perfil</label>
+      <select id="role" formControlName="role">
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+      <small *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched">
+        Selecione um perfil
+      </small>
+    </div>
+
+    <!-- Botão de envio -->
+    <button type="submit" [disabled]="userForm.invalid">
+      Criar Usuário
+    </button>
+
+  </form>
+</div>

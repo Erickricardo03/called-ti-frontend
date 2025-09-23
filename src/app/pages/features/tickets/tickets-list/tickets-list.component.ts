@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { TicketService } from '../../../core/services/ticket.service';
-import { TicketResponse  } from '../../../core/models/ticket.model';  // modelo correto
+import { TicketResponse, TicketStatus } from '../../../core/models/ticket.model';
 
 @Component({
   selector: 'app-ticket-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './tickets-list.component.html'  // cuidado com o nome do arquivo
+  templateUrl: './tickets-list.component.html',
 })
-export class TicketListComponent {
-  tickets: TicketResponse [] = []; // lista de tickets
+export class TicketListComponent {   // <-- precisa ter o export
+  tickets: TicketResponse[] = [];
+  loading = true;
+  errorMessage: string | null = null;
+  ticketStatuses = Object.values(TicketStatus);
 
-  constructor(private ticketService: TicketService) {}
+  constructor(private ticketService: TicketService, private router: Router) {}
 
- ngOnInit(): void {
-  this.ticketService.list().subscribe({
-    next: (data) => this.tickets = data,
-    error: (err) => console.error('Erro ao carregar tickets', err)
-  });
-}
+  ngOnInit(): void {
+    this.loadTickets();
+  }
+
+  loadTickets(): void {
+    this.ticketService.list().subscribe({
+      next: (data) => { this.tickets = data; this.loading = false; },
+      error: (err) => { this.errorMessage = 'Erro ao carregar tickets'; this.loading = false; }
+    });
+  }
 }

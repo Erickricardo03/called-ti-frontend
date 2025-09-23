@@ -1,28 +1,28 @@
 .ticket-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
+  border: 2px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  transition: all 0.2s;
 
   &.open {
-    background-color: #e0f7fa; // azul claro
-    border-color: #4fc3f7;
+    border-color: blue;
   }
 
   &.in_progress {
-    background-color: #fff3e0; // laranja claro
-    border-color: #ffb74d;
+    border-color: orange;
   }
 
   &.closed {
-    background-color: #e8f5e9; // verde claro
-    border-color: #81c784;
+    border-color: green;
+    background: #f0fff0;
   }
 
-  .actions {
-    margin-top: 8px;
-    button {
-      margin-right: 4px;
-    }
+  h3 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .actions button {
+    margin-right: 0.5rem;
   }
 }

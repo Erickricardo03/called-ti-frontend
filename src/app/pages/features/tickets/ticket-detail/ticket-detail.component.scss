@@ -1,39 +1,35 @@
-@use 'variables' as variables;
-
 .ticket-detail {
-  background: variables.$white;
-  padding: 1.5rem;
+  border: 2px solid #ccc;
+  padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-color: #f9f9f9;
 
-  h2 {
-    color: variables.$primary-blue;
-    margin-bottom: 0.5rem;
+  &.finalized {
+    border-color: green;
+    background-color: #e6ffe6;
   }
 
-  p {
-    margin: 0.25rem 0;
-    color: variables.$medium-gray;
-  }
-
-  h3 {
-    margin-top: 1.5rem;
-    color: variables.$primary-blue;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      background: variables.$light-blue;
-      border-radius: 4px;
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-
-      b {
-        color: variables.$primary-blue;
-      }
+  .meta {
+    margin-top: 0.5rem;
+    span {
+      display: inline-block;
+      margin-right: 1rem;
+      font-weight: bold;
     }
+  }
+
+  .footer {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .finalized-message {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: #d4edda;
+    border: 1px solid green;
+    border-radius: 4px;
+    font-weight: bold;
   }
 }

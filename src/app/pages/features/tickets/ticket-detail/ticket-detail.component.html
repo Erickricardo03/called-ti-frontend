@@ -1,13 +1,21 @@
-<!-- ticket-detail.component.html -->
-<div *ngIf="ticket">
-  <h2>{{ ticket.title }}</h2>
-  <p>{{ ticket.description }}</p>
-  <p>Status: <b>{{ ticket.status }}</b></p>
+<div class="ticket-detail" [ngClass]="{ finalized: ticket?.status === 'CLOSED' }">
+  <h3>{{ ticket?.title }}</h3>
+  <p>{{ ticket?.description }}</p>
 
-  <h3>Comentários</h3>
-  <ul>
-    <li *ngFor="let c of ticket.comments">
-      <b>{{ c.author }}:</b> {{ c.message }}
-    </li>
-  </ul>
+  <div class="meta">
+    <span class="priority">Prioridade: {{ ticket?.priority }}</span>
+    <span class="status">Status: {{ ticket?.status }}</span>
+    <span class="category">Categoria: {{ ticket?.category }}</span>
+  </div>
+
+  <div class="footer">
+    <span>Solicitante: {{ ticket?.requester?.name || ticket?.requester?.Id || 'Desconhecido' }}</span>
+    <span>Responsável: {{ ticket?.assignee?.name || 'sistema' }}</span>
+    <span>Criado em: {{ ticket?.createdAt | date:'short' }}</span>
+  </div>
+
+  <!-- Mensagem visível quando finalizado -->
+  <div class="finalized-message" *ngIf="ticket?.status === 'CLOSED'">
+    Chamado finalizado ✅ — encerrado por {{ ticket?.assignee?.name || 'sistema' }}.
+  </div>
 </div>
