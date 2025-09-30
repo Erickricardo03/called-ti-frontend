@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-comment-item',
   imports: [],
   templateUrl: './comment-item.component.html',
-  styleUrl: './comment-item.component.scss'
+  styleUrls: ['./comment-item.component.scss']
 })
 export class CommentItemComponent {
 

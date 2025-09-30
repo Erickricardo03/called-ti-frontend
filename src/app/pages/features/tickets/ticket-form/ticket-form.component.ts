@@ -22,7 +22,7 @@ export class TicketFormComponent {
       description: ['', Validators.required],
       priority: [Priority.LOW, Validators.required],
       category: ['', Validators.required],
-      requesterId: [8, Validators.required],
+      requesterId: [15, Validators.required],
       assigneeId: [null]
     });
   }

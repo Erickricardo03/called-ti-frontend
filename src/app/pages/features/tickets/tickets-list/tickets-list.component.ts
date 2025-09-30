@@ -9,8 +9,9 @@ import { TicketResponse, TicketStatus } from '../../../core/models/ticket.model'
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './tickets-list.component.html',
+  styleUrls: ['./tickets-list.component.scss']
 })
-export class TicketListComponent {   // <-- precisa ter o export
+export class TicketListComponent {   
   tickets: TicketResponse[] = [];
   loading = true;
   errorMessage: string | null = null;
