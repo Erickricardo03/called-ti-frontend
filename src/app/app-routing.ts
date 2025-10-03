@@ -5,13 +5,14 @@ import { TicketDetailComponent } from './pages/features/tickets/ticket-detail/ti
 import { TicketFormComponent } from './pages/features/tickets/ticket-form/ticket-form.component';
 import { UsersListComponent } from './pages/features/users/users-list/users-list.component';
 import { UserFormComponent } from './pages/features/users/user-form/user-form.component';
+//import { AuthGuard } from './pages/core/services/auth.guard'; 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'tickets/new', component: TicketFormComponent },
   { path: 'tickets/:id', component: TicketDetailComponent },
-  { path: 'users', component: UsersListComponent },      // lista de usuários
-  { path: 'users/new', component: UserFormComponent },    // criar usuário
+  { path: 'users', component: UsersListComponent },      
+  { path: 'users/new', component: UserFormComponent },    
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
