@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService, LoginResponse } from '../../../core/services/auth.service';
+import { Router, RouterModule } from '@angular/router'; // ✅ Importa RouterModule
+import { AuthService } from '../../../../pages/core/services/auth.service';
+import { LoginResponse } from '../../../../pages/core/models/auth.model';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule 
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -44,7 +50,7 @@ export class LoginComponent {
       },
       error: () => {
         this.loading = false;
-
+        // Aqui você pode mostrar uma mensagem de erro, se quiser
         this.router.navigate(['/tickets']);
       }
     });

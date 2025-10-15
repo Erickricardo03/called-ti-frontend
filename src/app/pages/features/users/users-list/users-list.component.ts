@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../core/services/user.service';
-import { UserResponse } from '../../../core/models/user.model';
-import { Observable } from 'rxjs';
+import { RouterModule } from '@angular/router';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role?: string;
+}
 
 @Component({
   selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule],
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit {
-  users$!: Observable<UserResponse[]>;
-
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.users$ = this.userService.users$;
-    this.userService.getAll().subscribe();
-  }
+export class UsersListComponent {
+  // Mock de usuários para portfólio
+  users: User[] = [
+    { id: 1, name: 'Ney Jhonson', email: 'ney@works.com', role: 'Admin' },
+    { id: 2, name: 'Marcello Ricardo', email: 'marcello@works.com', role: 'User' },
+    { id: 3, name: 'Jailson Lima', email: 'jailson@works.com', role: 'User' }
+  ];
 }

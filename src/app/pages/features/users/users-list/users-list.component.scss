@@ -1,27 +1,59 @@
-@use 'variables' as variables;
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: variables.$white;
+.users-header {
   margin-bottom: 1rem;
-
-  th {
-    text-align: left;
-    padding: 0.5rem;
-    background: variables.$primary-blue;
-    color: variables.$white;
-  }
-
-  td {
-    padding: 0.5rem;
-    border-bottom: 1px solid variables.$light-gray;
-    color: variables.$medium-gray;
+  h2 {
+    font-size: 1.5rem;
+    margin: 0;
   }
 }
 
-.error {
-  color: variables.$danger-red;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
+.no-users {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.user-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  p, small {
+    margin: 0.2rem 0;
+    color: #4b5563;
+  }
+
+  .actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.25rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+
+      &:hover { transform: translateY(-1px); filter: brightness(0.9); }
+
+      &:first-child { background-color: #3b82f6; color: #fff; } /* Editar */
+      &:last-child { background-color: #ef4444; color: #fff; }  /* Excluir */
+    }
+  }
 }

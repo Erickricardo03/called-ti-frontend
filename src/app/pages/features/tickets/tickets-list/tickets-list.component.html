@@ -1,3 +1,21 @@
+<!-- Cabeçalho com título e botões -->
+<div class="tickets-header">
+  <h2>Tickets</h2>
+  <div class="header-buttons">
+    <button class="create-button" [routerLink]="['/tickets/new']">
+      ➕ Novo Ticket
+    </button>
+    <button class="users-button" [routerLink]="['/users']">
+      👥 Lista de Usuários
+    </button>
+  </div>
+</div>
+
+<!-- Mensagem de carregamento ou erro -->
+<div *ngIf="loading">Carregando tickets...</div>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+<!-- Lista de tickets -->
 <div *ngFor="let ticket of tickets" class="ticket-card" [ngClass]="ticket.status.toLowerCase()">
   <h3>
     <a [routerLink]="['/tickets', ticket.id]">{{ ticket.title }} ({{ ticket.status }})</a>
@@ -7,13 +25,15 @@
   <small>Prioridade: {{ ticket.priority }}</small>
 
   <div class="actions">
-    <button (click)="editTicket(ticket.id)">Editar</button>
+    <button (click)="editTicket(ticket.id)">✏️ Editar</button>
+    
     <button *ngFor="let status of ticketStatuses"
             [disabled]="ticket.status === status"
             (click)="updateStatus(ticket, status)">
       {{ status }}
     </button>
-    <button (click)="deleteTicket(ticket.id)">Excluir</button>
+    
+    <button (click)="deleteTicket(ticket.id)">🗑️ Excluir</button>
   </div>
 
   <div *ngIf="ticket.status === 'FINALIZED' || ticket.status === 'CLOSED'" class="finalized-badge">
